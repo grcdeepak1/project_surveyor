@@ -1,0 +1,16 @@
+<header>
+<h1 class="heading">Survey Builder</h1>
+<hr>
+<h4><span class="text-bold">1. Build Survey</span> | <span class="text-muted">2. Add Questions</span></h4>
+<br>
+</header>
+<main class="new">
+  <p>First, choose a title and a description for your survey.</p>
+  <%= form_for @survey do |f| %>
+    <h4>Survey Title</h4>
+    <%= f.text_field :title, size: 40, placeholder: 'eg. "The personality test"' %>
+    <h4>Survey Description</h4>
+    <%= f.text_area :description, cols: 40, rows: 4, placeholder: 'eg. "Disovering what is unique and special about all you crazy people"'%><br>
+    <%= f.submit "Create Survey and Begin Adding Questions", class: "btn btn-primary" %>
+  <% end %>
+</main>

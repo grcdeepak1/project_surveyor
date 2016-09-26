@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  text: MyText
+  survey_id: 1
+  num_options: 1
+  multi_select: false
+  required: false
+
+two:
+  text: MyText
+  survey_id: 1
+  num_options: 1
+  multi_select: false
+  required: false
