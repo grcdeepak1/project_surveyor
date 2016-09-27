@@ -8,11 +8,11 @@
   <h4><u>Take a Survey</u></h4>
   <% @surveys.each_with_index do |s, i| %>
     <article>
-      <h4><%= link_to "#{i+1}"+". "+"#{s.title}", survey_path(s.id) %></h4>
+      <h4><%= link_to "#{i+1}"+". "+"#{s.title}", new_survey_question_path(s.id) %></h4>
       <div class="info">
         <p class="desc"><%= s.description %></p>
         <p><em> 0 Responses</em></p>
-        <%= link_to "Take Survey", "#", class: "btn btn-default" %>
+        <%= link_to "Take Survey", survey_questions_path(s.id), class: "btn btn-default" %>
         <%= link_to "View Results", "#", class: "btn btn-default" %>
       </div>
     </article>

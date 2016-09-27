@@ -1,0 +1,20 @@
+<h4>Add a Number Range Question</h4>
+<%= form_for [survey, question] do |f| %>
+  <p class="text-bold">What is your question?</p>
+  <%= f.hidden_field :survey_id %>
+  <%= f.text_field :text, :placeholder => 'eg. "How many times per day do you blink?"' %><br>
+
+  <em>What is the Minimum Range Value?</em><br>
+  <%= select_tag(:min_range, options_for_select([[1, 1], [2, 2], [3, 3]])) %><br>
+
+  <em>What is the Maximum Range Value?</em><br>
+  <%= select_tag(:max_range, options_for_select([[1, 1], [2, 2], [3, 3]])) %><br>
+
+  <em>Is the question required?</em><br>
+  <%= f.radio_button :required, true, :checked => true %>
+  <%= f.label :required, "Yes"%><br>
+  <%= f.radio_button :required, false %>
+  <%= f.label :required, "No" %><br>
+
+  <%= f.submit "Add a New Question", class: "btn btn-primary" %>
+<% end %>

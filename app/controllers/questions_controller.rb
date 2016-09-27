@@ -1,5 +1,10 @@
 class QuestionsController < ApplicationController
 
+  def index
+    @survey = Survey.find(params[:survey_id])
+    @questions = @survey.questions
+  end
+
   def new
     @survey = Survey.find(params[:survey_id])
     @question = Question.new(survey_id: @survey.id)
@@ -25,6 +30,11 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
+    if @question.number_range?
+      @question.options = []
+      params["question"]["options_attributes"] =
+      num_range_to_options_attributes(params[:min_range], params[:max_range])
+    end
     if @question.update(whitelisted_question_params)
       flash[:success] = "yeah, question updated!"
       redirect_to question_edit_options_path(@question)
@@ -87,5 +97,13 @@ class QuestionsController < ApplicationController
         flash.now[:danger] << type.to_s.titleize + " " + err
       end
     end
+  end
+
+  def num_range_to_options_attributes(min_range, max_range)
+    options_attributes = {}
+    (min_range..max_range).each_with_index do |n, i|
+      options_attributes["#{i}"] = {text: "#{n}"}
+    end
+    options_attributes
   end
 end

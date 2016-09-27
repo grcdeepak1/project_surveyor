@@ -1,0 +1,17 @@
+<% if question.required %>
+<h5><span class="text-danger">*</span><%= "#{idx}. #{question.text}" %></h5>
+<% else %>
+<h5>&nbsp;<%="#{idx}. #{question.text}" %></h5>
+<% end %>
+<% question.options.each do |option| %>
+  <% if question.multiple_choice? && question.multi_select? %>
+    <%= check_box_tag  "survey[#{question.id}][]", option.id %>
+    <%= label_tag "surveys_question_ids_#{question.id}", option.text %><br>
+  <% elsif question.multiple_choice? %>
+    <%= radio_button_tag  "survey[#{question.id}][]", option.id %>
+    <%= label_tag "surveys_question_ids_#{question.id}", option.text %><br>
+  <% elsif question.number_range? %>
+    Number Range
+  <% end %>
+<% end %>
+

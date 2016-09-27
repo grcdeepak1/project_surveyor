@@ -1,0 +1,15 @@
+<header>
+<h1 class="heading">Survey Taker:</h1>
+<br>
+<h4><%= @survey.title %></h4>
+<p><%= @survey.description %></p>
+</header>
+<p class="text-muted text-center"><em>Questions marked with an asterisk(*) are required</em></p>
+<main class="index">
+  <%= form_for @survey, {:url => {:controller => "surveys", :action => "create_answer"} } do |f| %>
+    <% @questions.each_with_index do |q, idx| %>
+      <%= render partial: 'question', locals: {question: q, idx: idx+1, f: f} %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</main>

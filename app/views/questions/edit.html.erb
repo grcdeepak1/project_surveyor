@@ -11,27 +11,10 @@
   <h4>Description</h4>
   <p><%= @survey.description %><br>
   <hr>
-  <h4>Add Multiple choice questions:</h4>
-  <h4><span class="text-bold">1. Select Options</span> | <span class="text-muted">2. Add Questions Text</span></h4>
-  <%= form_for [@survey, @question] do |f| %>
-    <em>How many options should the questions have?</em><br>
-    <%= f.hidden_field :survey_id %>
-    <%= f.select(:num_options, [['1', '1'], ['2', '2'], ['3', '3']], { class: "selectpicker" }) %><br>
-
-    <em>How many options can be selected?</em><br>
-    <%= f.radio_button :multi_select, false, :checked => true %>
-    <%= f.label :multi_select, "Just One"%><br>
-    <%= f.radio_button :multi_select, true %>
-    <%= f.label :multi_select, "Multiple" %><br>
-
-    <em>Is the question required?</em><br>
-    <%= f.radio_button :required, true, :checked => true %>
-    <%= f.label :required, "Yes"%><br>
-    <%= f.radio_button :required, false %>
-    <%= f.label :required, "No" %><br>
-
-
-    <%= f.submit "Add a New Question", class: "btn btn-primary" %>
+  <% unless @question.number_range? %>
+    <%= render partial: 'add_mcq', locals: {survey: @survey, question: @question} %>
+  <% else %>
+    <%= render partial: 'add_number_range', locals: {survey: @survey, question: @question} %>
   <% end %>
   <hr>
   <%= render partial: 'existing_questions', locals: { survey: @survey }%>

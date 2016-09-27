@@ -24,6 +24,12 @@ class SurveysController < ApplicationController
     @survey =  Survey.new
   end
 
+  def create_answer
+    binding.pry
+    flash[:success] = "Thank you for taking the survey"
+    redirect_to :root
+  end
+
   private
 
   def whitelisted_survey_params
