@@ -1,19 +1,23 @@
 class SurveysController < ApplicationController
 
   def index
-    @surveys = Survey.all
+    @surveys = Survey.order(created_at: :desc)
   end
 
   def create
     new_survey = Survey.new(whitelisted_survey_params)
     if new_survey.save
       flash[:success] = "New Survey, successfully created"
-      redirect_to surveys_path
+      redirect_to new_survey_question_path(new_survey)
     else
       @survey = new_survey
       show_errors(@survey.errors.messages)
       render :new
     end
+  end
+
+  def show
+    @survey = Survey.find(params[:id])
   end
 
   def new

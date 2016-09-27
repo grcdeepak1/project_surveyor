@@ -1,0 +1,30 @@
+<header>
+<h1 class="heading">Survey Builder</h1>
+<hr>
+<h4><span class="text-muted">1. Build Survey</span> | <span class="text-bold">2. Add Questions</span></h4>
+<br>
+</header>
+<main class="new">
+  <p>Next, fill in the questions.</p>
+  <h4>Title:</h4>
+  <p><%= @survey.title %></p>
+  <h4>Description</h4>
+  <p><%= @survey.description %><br>
+  <hr>
+  <h4>Add Multiple choice questions:</h4>
+  <h4><span class="text-muted">1. Select Options</span> | <span class="text-bold">2. Add Questions Text</span></h4>
+  <%= form_for @question, {:url => { :action => :update_options} } do |f| %>
+    <em>Next, add the text for each of your options</em><br>
+    <p class="text-bold">What is your question?</p>
+    <%= f.text_field :text, :placeholder => 'eg. "Who does Number Two work for?"' %><br>
+      <%= f.fields_for :options do |option_fields| %>
+        <%= option_fields.label "Option #{option_fields.index+1}" %><br>
+        <%= option_fields.text_field :text %><br>
+      <% end %>
+    <%= f.submit "Add a Question", class: "btn btn-primary" %>
+  <% end %>
+  <br>
+  <%= link_to "Back to previous step", edit_survey_question_path(@survey, @question) %>
+  <hr>
+  <%= render partial: 'existing_questions', locals: { survey: @survey } %>
+</main>
