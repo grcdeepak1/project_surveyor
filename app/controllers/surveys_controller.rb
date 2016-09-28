@@ -1,7 +1,7 @@
 class SurveysController < ApplicationController
 
   def index
-    @surveys = Survey.order(created_at: :desc)
+    @surveys = Survey.order(created_at: :desc).includes(:responses)
   end
 
   def create
