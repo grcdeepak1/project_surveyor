@@ -3,15 +3,19 @@
 <% else %>
 <h5>&nbsp;<%="#{idx}. #{question.text}" %></h5>
 <% end %>
-<% question.options.each do |option| %>
-  <% if question.multiple_choice? && question.multi_select? %>
-    <%= check_box_tag  "survey[#{question.id}][]", option.id %>
-    <%= label_tag "surveys_question_ids_#{question.id}", option.text %><br>
-  <% elsif question.multiple_choice? %>
-    <%= radio_button_tag  "survey[#{question.id}][]", option.id %>
-    <%= label_tag "surveys_question_ids_#{question.id}", option.text %><br>
-  <% elsif question.number_range? %>
-    Number Range
+<% if question.number_range? %>
+  <%= select_tag "survey[#{question.id}][]",
+      options_for_select(question.options.pluck(:text)) %><br>
+<% else %>
+  <% question.options.each do |option| %>
+    <% if question.multiple_choice? && question.multi_select? %>
+      <%= check_box_tag  "survey[#{question.id}][]", option.id %>
+      <%= label_tag "surveys_question_ids_#{question.id}", option.text %><br>
+    <% elsif question.multiple_choice? %>
+      <%= radio_button_tag  "survey[#{question.id}][]", option.id %>
+      <%= label_tag "surveys_question_ids_#{question.id}", option.text %><br>
+    <% end %>
   <% end %>
 <% end %>
+<br>
 

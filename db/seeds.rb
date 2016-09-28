@@ -13,11 +13,17 @@ Survey.all.each do |s|
     s.questions << Question.new(survey_id: s.id, text: Faker::Lorem.sentence, num_options: 3,
                                 required: true, question_type: 'Multiple Choice', multi_select: false)
   end
+  s.questions << Question.new(survey_id: s.id, text: Faker::Lorem.sentence,
+                              question_type: 'Number Range')
 end
 
 puts "Creating 3 options per questions in each survey.."
 Question.all.each do |q|
-  3.times do
-    Option.create(question_id: q.id, text: Faker::Lorem.sentence)
+  if q.number_range?
+    (1..3).each { |num| Option.create(question_id: q.id, text: num) }
+  else
+    3.times do
+      Option.create(question_id: q.id, text: Faker::Lorem.sentence)
+    end
   end
 end
