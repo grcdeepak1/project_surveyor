@@ -5,7 +5,7 @@
 <% end %>
 <% if question.number_range? %>
   <%= select_tag "survey[#{question.id}][]",
-      options_for_select(question.options.pluck(:text)) %><br>
+      options_from_collection_for_select(question.options, "id", "text") %><br>
 <% else %>
   <% question.options.each do |option| %>
     <% if question.multiple_choice? && question.multi_select? %>

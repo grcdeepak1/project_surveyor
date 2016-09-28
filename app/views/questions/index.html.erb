@@ -6,7 +6,10 @@
 </header>
 <p class="text-muted text-center"><em>Questions marked with an asterisk(*) are required</em></p>
 <main class="index">
-  <%= form_for @survey, {:url => {:controller => "surveys", :action => "create_answer"} } do |f| %>
+  <%= form_for @response do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name, value: "Anonymous" %>
+    <%= f.hidden_field :survey_id, value: @survey.id %>
     <% @questions.each_with_index do |q, idx| %>
       <%= render partial: 'question', locals: {question: q, idx: idx+1, f: f} %>
     <% end %>
