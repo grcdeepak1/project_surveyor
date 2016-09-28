@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'surveys#index'
 
   resources :surveys do
+    get 'results', on: :member
     resources :questions
   end
   resources :responses, only: [:create]

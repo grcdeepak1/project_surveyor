@@ -1,14 +1,22 @@
 class ResponsesController < ApplicationController
   def create
     new_response = Response.new(name: params["response"]["name"])
+
     new_response.answers_attributes= whitelisted_answer_params
-    if new_response.save
+    if validate_response(params) && new_response.save
       flash[:success] = "Thank you for taking the survey"
       redirect_to :root
     else
-      flash.new[:danger] = "Please correct the errors and resubmit"
+      @survey = Survey.find(params["response"]["survey_id"])
+      @questions = @survey.questions
+      @response = Response.new
+      flash.now[:danger] = "Please correct the errors and resubmit"
       render 'questions/index'
     end
+  end
+
+  def index
+
   end
 
   private
@@ -16,8 +24,14 @@ class ResponsesController < ApplicationController
     temp_arr = []
     survey_id = params["response"]["survey_id"]
     params["survey"].each do |k, v|
-      temp_arr << {survey_id: survey_id, question_id: k, option_id: v.join}
+      v.each do |m_v|
+        temp_arr << {survey_id: survey_id, question_id: k, option_id: m_v}
+      end
     end
     temp_arr
+  end
+
+  def validate_response(params)
+    true
   end
 end

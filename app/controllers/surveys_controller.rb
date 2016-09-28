@@ -4,6 +4,11 @@ class SurveysController < ApplicationController
     @surveys = Survey.order(created_at: :desc).includes(:responses)
   end
 
+  def results
+    @survey = Survey.find(params[:id])
+    @responses = @survey.responses
+  end
+
   def create
     new_survey = Survey.new(whitelisted_survey_params)
     if new_survey.save

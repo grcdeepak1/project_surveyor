@@ -13,7 +13,7 @@
         <p class="desc"><%= s.description %></p>
         <p><em> <%= pluralize s.responses.uniq.count, 'response' %></em></p>
         <%= link_to "Take Survey", survey_questions_path(s.id), class: "btn btn-default" %>
-        <%= link_to "View Results", "#", class: "btn btn-default" %>
+        <%= link_to "View Results", results_survey_path(s.id), class: "btn btn-default" %>
       </div>
     </article>
   <% end %>

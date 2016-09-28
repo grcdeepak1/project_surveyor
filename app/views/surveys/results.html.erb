@@ -1,0 +1,25 @@
+<header>
+<h1 class="heading">Survey Results</h1>
+<hr>
+<h4><%= @survey.title %></h4>
+<p><%= @survey.description%></p>
+</header>
+<p><em> <%= pluralize @survey.responses.uniq.count, 'response' %></em></p><br>
+
+<% @survey.questions.each_with_index do |question, index| %>
+<h5><%= "#{index+1}. #{question.text}" %></h5>
+<div class="well">
+  <table class="table table-striped">
+    <tr>
+      <th>Response</th>
+      <th>Count</th>
+    </tr>
+    <% question.options.each do |option| %>
+    <tr>
+      <td><%= option.text %></td>
+      <td><%= Answer.where("question_id = #{question.id} AND option_id = #{option.id}").count %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<% end %>

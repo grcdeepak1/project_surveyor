@@ -9,12 +9,12 @@ puts "Creating 10 surveys..."
   Survey.create(title: Faker::Lorem.sentence, description: Faker::Lorem.sentence )
 end
 
-puts "Creating 2 questions in each survey.."
+puts "Creating 3 questions in each survey.."
 Survey.all.each do |s|
-  2.times do
-    s.questions << Question.new(survey_id: s.id, text: Faker::Lorem.sentence, num_options: 3,
-                                required: true, question_type: 'Multiple Choice', multi_select: false)
-  end
+  s.questions << Question.new(survey_id: s.id, text: Faker::Lorem.sentence, num_options: 3,
+                              required: true, question_type: 'Multiple Choice', multi_select: false)
+  s.questions << Question.new(survey_id: s.id, text: Faker::Lorem.sentence, num_options: 3,
+                              required: true, question_type: 'Multiple Choice', multi_select: true)
   s.questions << Question.new(survey_id: s.id, text: Faker::Lorem.sentence,
                               question_type: 'Number Range')
 end
