@@ -29,3 +29,18 @@ Question.all.each do |q|
     end
   end
 end
+
+puts "Taking last survey"
+r = Response.create(name: "Deepak")
+s = Survey.last
+s.questions.each do |q|
+  if q.multi_select?
+    Answer.create(question_id: q.id, option_id: q.options.first.id,
+                  survey_id: s.id, response_id: r.id)
+    Answer.create(question_id: q.id, option_id: q.options.last.id,
+                  survey_id: s.id, response_id: r.id)
+  else
+    Answer.create(question_id: q.id, option_id: q.options.sample.id,
+                  survey_id: s.id, response_id: r.id)
+  end
+end
